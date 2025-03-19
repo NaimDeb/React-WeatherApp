@@ -1,0 +1,22 @@
+body {
+  background: #202629;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 100px;
+  pointer-events: none;
+}
+
+
+
+.App-link {
+  color: #61dafb;
+}
+
+.bold {
+  font-weight: bold;
+}
