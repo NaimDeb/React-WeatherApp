@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import FutureWeatherCard from "../FutureWeatherCard/FutureWeatherCard";
 import CurrentWeatherCard from "../CurrentWeatherCard";
+import CurrentWeatherChart from "../CurrentWeatherChart/CurrentWeatherChart";
 import { fetchWeatherForecast } from '../../services/WeatherService';
 import Searchbar from "../Searchbar/Searchbar";
 import './WeatherLayout.css';
@@ -12,7 +13,8 @@ function WeatherLayout() {
   const [apiData,setApiData] = useState([]);
   const [error, setError] = useState(null);
   const [selectedWeather, setSelectedWeather] = useState(null);
-  // const [searchData, setSearchData] = useState([]);
+  const [selectedDayData, setSelectedDayData] = useState(null);
+
 
   const loadWeatherData = async (city = "Lyon") => {
     try {
@@ -35,6 +37,7 @@ function WeatherLayout() {
   const handleDaySelect = (date) => {
     const forecastDay = apiData.forecast.forecastday.find(day => day.date === date);
     setSelectedWeather(forecastDay?.day);
+    setSelectedDayData(forecastDay); // Store the entire day data including hour-by-hour forecast
   };
 
 
@@ -55,6 +58,7 @@ function WeatherLayout() {
           {loading == false && <>
           
           <CurrentWeatherCard name={apiData.location.name} weather={selectedWeather || apiData.current} />
+          <CurrentWeatherChart forecast={selectedDayData || apiData.forecast.forecastday[0]} />
           <FutureWeatherCard forecast={apiData.forecast} onDaySelect={handleDaySelect}/>
           </>
           }
