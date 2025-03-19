@@ -17,8 +17,11 @@ function WeatherLayout() {
   const [loading, setLoading] = useState(true);
 
 
-  useEffect(() => {
 
+
+  // Api call
+  useEffect(() => {
+    
     fetch(`${url}${api_key}&q=${search}&days=${nbOfDays}&aqi=yes&alerts=no`)
 
       .then((response) => {
@@ -57,7 +60,7 @@ function WeatherLayout() {
           {loading && <div className="card-content white-text">Loading...</div>}
 
           {loading == false && <>
-          <CurrentWeatherCard response={apiData} />
+          <CurrentWeatherCard name={apiData.location.name} weather={apiData.current} />
           <FutureWeatherCard response={apiData}/>
           </>
           }
