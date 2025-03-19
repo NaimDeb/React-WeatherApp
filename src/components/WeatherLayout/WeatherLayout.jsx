@@ -14,10 +14,10 @@ function WeatherLayout() {
   const [selectedWeather, setSelectedWeather] = useState(null);
   // const [searchData, setSearchData] = useState([]);
 
-  const loadWeatherData = async () => {
+  const loadWeatherData = async (city = "Lyon") => {
     try {
         setLoading(true);
-        const data = await fetchWeatherForecast("Lyon");
+        const data = await fetchWeatherForecast(city);
         setApiData(data);
     } catch (error) {
         setError(error.message);
@@ -48,7 +48,7 @@ function WeatherLayout() {
   return (
     <div className="row">
       <div className="col s12 m6 push-m3">
-      <Searchbar />
+      <Searchbar handleSelectCity={loadWeatherData} />
       
         <div className="weather card blue-grey darken-1">
 

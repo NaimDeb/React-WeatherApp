@@ -3,14 +3,13 @@ import React, { useState } from "react";
 import "./Searchbar.css";
 import { fetchWeatherName } from "../../services/WeatherService";
 
-function Searchbar() {
+function Searchbar({ handleSelectCity }) {
   const [searchData, setSearchData] = useState(null);
+  const [searchValue, setSearchValue] = useState("");
 
-  const handleSearch = async (city) => {
+  const handleSearchNames = async (city) => {
     if (city.length < 3) {
-      if (searchData.length == 0) {
-        setSearchData(null);
-      }
+      setSearchData(null);
       return;
     }
     const data = await fetchWeatherName(city);
@@ -19,26 +18,32 @@ function Searchbar() {
     // Debouncing
   };
 
-  const handleSelectSearch = (city) => {
+  const handleSelectSearch = (cityName) => {
+    setSearchValue(cityName);
     setSearchData(null);
-    document.querySelector(".searchBar").value = city;
+    handleSelectCity(cityName); // Pass the cityName to handleSelectCity
   };
 
   return (
     <div>
       <p>Rechercher une ville</p>
-      <form action="#" method="get">
+      <form>
         <input
           type="text"
           className="searchBar"
-          onKeyUp={(e) => handleSearch(e.target.value)}
+          value={searchValue} // Add this to control the input value
+          onChange={(e) => {
+            setSearchValue(e.target.value);
+            handleSearchNames(e.target.value);
+          }}
         />
         {searchData &&
           searchData.map((city) => (
             <button
-            className="searchResult"
+              className="searchResult"
               onClick={(event) => {
                 event.preventDefault();
+                setSearchValue(city.name);
                 handleSelectSearch(city.name);
               }}
               key={`${city.name}${city.country}`}
@@ -46,8 +51,16 @@ function Searchbar() {
               {city.name}, {city.country}
             </button>
           ))}
-        <br></br>
-        <button type="submit">Rechercher</button>
+        <br />
+        <button
+          type="submit"
+          onClick={(e) => {
+            e.preventDefault();
+            handleSelectCity(searchValue);
+          }}
+        >
+          Rechercher
+        </button>
       </form>
     </div>
   );
