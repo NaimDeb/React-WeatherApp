@@ -1,3 +1,19 @@
 .searchBar {
     width: 250px;
 }
+
+.searchResult {
+    background-color: #3d3d3d;
+    color: #ffffff;
+    border: 1px solid black;
+    border-radius: 4px;
+    padding: 10px 15px;
+    margin: 5px 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.searchResult:hover {
+    background-color: #333333;
+}
+
