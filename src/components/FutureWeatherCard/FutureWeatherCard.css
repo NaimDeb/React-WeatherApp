@@ -1,0 +1,66 @@
+.card-action {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 16px 24px;
+    background: #120944;
+  }
+  
+  .day-link {
+    color: rgba(255, 255, 255, 0.8) !important;
+    text-align: center;
+    flex: 1;
+    margin: 0 5px;
+    padding: 10px 5px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+  }
+  
+  .day-link.active {
+    color: #fff !important;
+    background: rgba(255, 255, 255, 0.1);
+    font-weight: bold;
+  }
+  
+  .day-name {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .day-temp {
+    font-size: 1.1em;
+    margin-bottom: 5px;
+  }
+  
+  .day-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  @media (max-width: 600px) {
+    .card-action {
+      padding: 10px;
+      flex-direction: column;
+    }
+  
+    .day-link {
+      margin: 3px 0;
+      padding: 8px 5px;
+      flex-direction: row;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  
+    .day-link div {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+    }
+  
+    .day-temp {
+      margin: 0;
+      flex: 0 0 30px;
+    }
+  }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import FutureWeatherCard from "../FutureWeatherCard";
+import FutureWeatherCard from "../FutureWeatherCard/FutureWeatherCard";
 import CurrentWeatherCard from "../CurrentWeatherCard";
 import './WeatherLayout.css';
 
@@ -7,8 +7,8 @@ function WeatherLayout() {
 
   const url = "https://api.weatherapi.com/v1/forecast.json?key=";
   const api_key = import.meta.env.VITE_WEATHER_API_KEY;
-  let search = "Lyon"
-  let nbOfDays = 3;
+  let search = "Paris"
+  let nbOfDays = 4;
 
 
 
@@ -16,7 +16,13 @@ function WeatherLayout() {
 
   const [loading, setLoading] = useState(true);
 
+  const [selectedWeather, setSelectedWeather] = useState(null);
 
+  
+  const handleDaySelect = (date) => {
+    const forecastDay = apiData.forecast.forecastday.find(day => day.date === date);
+    setSelectedWeather(forecastDay?.day);
+  };
 
 
   // Api call
@@ -48,8 +54,7 @@ function WeatherLayout() {
 
   })
 
-
-    
+  
 
 
   return (
@@ -60,8 +65,9 @@ function WeatherLayout() {
           {loading && <div className="card-content white-text">Loading...</div>}
 
           {loading == false && <>
-          <CurrentWeatherCard name={apiData.location.name} weather={apiData.current} />
-          <FutureWeatherCard response={apiData}/>
+          
+          <CurrentWeatherCard name={apiData.location.name} weather={selectedWeather || apiData.current} />
+          <FutureWeatherCard forecast={apiData.forecast} onDaySelect={handleDaySelect}/>
           </>
           }
           
