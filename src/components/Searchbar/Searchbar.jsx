@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-// Marche pas ?
 import "./Searchbar.css";
 import { fetchWeatherName } from "../../services/WeatherService";
+import { FaSearch, FaCity } from "react-icons/fa";
 
 function Searchbar({ handleSelectCity }) {
   const [searchData, setSearchData] = useState(null);
@@ -14,24 +14,22 @@ function Searchbar({ handleSelectCity }) {
     }
     const data = await fetchWeatherName(city);
     setSearchData(data);
-
-    // Debouncing
   };
 
   const handleSelectSearch = (cityName) => {
     setSearchValue(cityName);
     setSearchData(null);
-    handleSelectCity(cityName); // Pass the cityName to handleSelectCity
+    handleSelectCity(cityName);
   };
 
   return (
-    <div>
+    <div className="searchBar-container">
       <p>Rechercher une ville</p>
       <form>
         <input
           type="text"
           className="searchBar"
-          value={searchValue} // Add this to control the input value
+          value={searchValue}
           onChange={(e) => {
             setSearchValue(e.target.value);
             handleSearchNames(e.target.value);
@@ -39,7 +37,7 @@ function Searchbar({ handleSelectCity }) {
         />
         {searchData &&
           searchData.map((city) => (
-            <button
+            <div
               className="searchResult"
               onClick={(event) => {
                 event.preventDefault();
@@ -48,17 +46,20 @@ function Searchbar({ handleSelectCity }) {
               }}
               key={`${city.name}${city.country}`}
             >
+              <FaCity className="searchResult-icon" />
               {city.name}, {city.country}
-            </button>
+            </div>
           ))}
         <br />
         <button
           type="submit"
+          className="searchButton"
           onClick={(e) => {
             e.preventDefault();
             handleSelectCity(searchValue);
           }}
         >
+          <FaSearch className="searchButton-icon" />
           Rechercher
         </button>
       </form>

@@ -1,19 +1,47 @@
-        /* Weather */
-        .weather.card {
-            margin-top:4vh;
-        }
+/* Weather */
+.weather.card {
+  margin-top: 4vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #0b0829;
+}
 
-        .weather.card .card-content {
-            background: #0b0829;
-        }
+.weather.card .card-content {
+  background: #0b0829;
+}
 
-        .weather.card .card-action {
-            background: #120944;
-        }
+.weather.card .card-action {
+  background: #120944;
+}
 
-        .weather .temperature {
-            margin-left:4vh;
-            font-size:120px;
-            font-family: 'Roboto', sans-serif;
-            text-shadow: -1px 0 #61dafb, 0 1px #61dafb, 1px 0 #61dafb, 0 -1px #61dafb;
-        }
+.weather .temperature {
+  margin-left: 4vh;
+  font-size: 120px;
+  font-family: "Roboto", sans-serif;
+  text-shadow: -1px 0 #61dafb, 0 1px #61dafb, 1px 0 #61dafb, 0 -1px #61dafb;
+}
+
+.weather-content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  background: #0b0829;
+  gap: 10px; /* Reduce the gap between the card and the chart */
+}
+
+.current-weather-card {
+  flex-basis: 33%;
+}
+
+@media (max-width: 768px) {
+  .weather-content {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* Increase the gap for smaller screens */
+  }
+}
+
+.future-weather-cards {
+  width: 100%;
+}
