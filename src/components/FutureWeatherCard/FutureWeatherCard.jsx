@@ -35,7 +35,7 @@ return (
         : null;
       
       return (
-        <a href="#" key={day} onClick={() => handleSelectDay(day)} className={selected === day ? "bold" : ""}>
+        <a href="#" key={day} onClick={(e) => {e.preventDefault(); handleSelectDay(day)}} className={selected === day ? "bold" : ""}>
           <div>
             <span className="day-name">{day}</span>
             <div className="day-temp">{dayForecast?.day?.avgtemp_c}°</div>
