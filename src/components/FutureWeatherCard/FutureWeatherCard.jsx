@@ -27,7 +27,6 @@ function FutureWeatherCard({ forecast, onDaySelect }) {
     onDaySelect(forecastDates[day]);
   }
 
-// ...existing code...
 return (
   <div className="card-action">
     {forecastDays.map((day) => {
@@ -51,7 +50,6 @@ return (
     })}
   </div>
 );
-// ...existing code...
 }
 
 export default FutureWeatherCard;
