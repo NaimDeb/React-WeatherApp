@@ -16,10 +16,12 @@ function WeatherLayout() {
   const loadWeatherData = async (city = "Lyon") => {
     try {
       setLoading(true);
+      setError(null);
       const data = await fetchWeatherForecast(city);
       setApiData(data);
     } catch (error) {
       setError(error.message);
+      setApiData(null);
     } finally {
       setLoading(false);
     }
@@ -37,20 +39,15 @@ function WeatherLayout() {
     setSelectedDayData(forecastDay);
   }, [apiData]);
 
-  if (loading)
-    return <div className="card-content white-text">Chargement...</div>;
-  if (error)
-    return <div className="card-content white-text">Erreur: {error}</div>;
-
 return (
   <div className="row">
     <div className="col s12 m6 push-m3">
       <Searchbar handleSelectCity={loadWeatherData} />
       <div className="weather card blue-grey darken-1">
         {loading ? (
-          <LoadingSpinner />
+          <div className="card-content white-text">Chargement...</div>
         ) : error ? (
-          <ErrorMessage message={error} />
+          <div className="card-content white-text">Erreur: {error}</div>
         ) : (
           <>
             <div className="future-weather-cards">

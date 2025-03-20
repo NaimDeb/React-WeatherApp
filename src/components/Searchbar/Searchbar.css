@@ -8,12 +8,17 @@
 .searchBar {
   width: 300px;
   padding: 10px;
-  border: 2px solid #61dafb;
+  border: none;
   border-radius: 8px;
   font-size: 16px;
   margin-bottom: 10px;
-  background-color: #1a1a1a;
+  background-color: #1f1f1f;
   color: #ffffff;
+  outline: none;
+}
+
+.searchBar:focus {
+  border: 2px solid #61dafb;
 }
 
 .searchResult {
@@ -40,21 +45,25 @@
 }
 
 .searchButton {
-  background-color: #61dafb;
-  color: #ffffff;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
+  background-color: #120944;
+  color: #ececec;
+  border: solid 1px rgb(71, 71, 71);
+  border-radius: 3px;
+  padding: 12px 15px;
   font-size: 16px;
+  margin: auto;
   cursor: pointer;
   transition: background-color 0.3s ease;
   display: flex;
   align-items: center;
+  transition: all 0.1s ease;
+
+  &:hover {
+    background-color: #0c0630;
+    transform: scale(1.1);
+  }
 }
 
-.searchButton:hover {
-  background-color: #4ecdc4;
-}
 
 .searchButton-icon {
   margin-right: 10px;
