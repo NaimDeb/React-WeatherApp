@@ -12,6 +12,8 @@ function useWeather(defaultCity = "Lyon") {
       const result = await fetchWeatherForecast(city);
       setData(result);
       setError(null);
+      // Save city to localStorage when weather fetch succeeds
+      localStorage.setItem("lastCity", city);
     } catch (err) {
       setError(err.message);
       setData(null);
@@ -21,7 +23,9 @@ function useWeather(defaultCity = "Lyon") {
   };
 
   useEffect(() => {
-    getWeather(defaultCity);
+    // Try to get last searched city from localStorage
+    const savedCity = localStorage.getItem("lastCity");
+    getWeather(savedCity || defaultCity);
   }, [defaultCity]);
 
   return { data, loading, error, getWeather };
