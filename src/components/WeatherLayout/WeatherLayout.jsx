@@ -1,35 +1,16 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import FutureWeatherCard from "../FutureWeatherCard/FutureWeatherCard";
 import CurrentWeatherCard from "../CurrentWeatherCard/CurrentWeatherCard";
-import { fetchWeatherForecast } from "../../services/WeatherService";
 import Searchbar from "../Searchbar/Searchbar";
+import useWeather from "../../hooks/useWeather";
 import Graph from "../Graph/Graph";
 import "./WeatherLayout.css";
 
 function WeatherLayout() {
-  const [loading, setLoading] = useState(true);
-  const [apiData, setApiData] = useState(null);
-  const [error, setError] = useState(null);
+  const { data: apiData, loading, error, getWeather } = useWeather();
   const [selectedWeather, setSelectedWeather] = useState(null);
   const [selectedDayData, setSelectedDayData] = useState(null);
 
-  const loadWeatherData = async (city = "Lyon") => {
-    try {
-      setLoading(true);
-      setError(null);
-      const data = await fetchWeatherForecast(city);
-      setApiData(data);
-    } catch (error) {
-      setError(error.message);
-      setApiData(null);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    loadWeatherData();
-  }, []);
 
   const handleDaySelect = useCallback((date) => {
     const forecastDay = apiData.forecast.forecastday.find(
@@ -42,7 +23,7 @@ function WeatherLayout() {
 return (
   <div className="row">
     <div className="col s12 m6 push-m3">
-      <Searchbar handleSelectCity={loadWeatherData} />
+      <Searchbar handleSelectCity={getWeather} />
       <div className="weather card blue-grey darken-1">
         {loading ? (
           <div className="card-content white-text">Chargement...</div>
